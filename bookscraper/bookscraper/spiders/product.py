@@ -12,7 +12,7 @@ class ProductSpider(scrapy.Spider):
             link = product_link.xpath(".//h3/a/@href").get()  # Lấy link sách
             full_link = response.urljoin(link)  # Tạo link đầy đủ từ URL tương đối
             
-            # Gửi request đến trang chi tiết sản phẩm và gọi hàm parse_name để cào dữ liệu
+            # Gửi yêu cầu đến trang chi tiết sản phẩm và gọi hàm parse_name để cào dữ liệu
             yield scrapy.Request(url=full_link, callback=self.parse_name)
 
         # Lấy link trang tiếp theo
@@ -23,7 +23,7 @@ class ProductSpider(scrapy.Spider):
 
     # Hàm chi tiết sản phẩm 
     def parse_name(self, response):
-        # Lấy tên sản phẩm từ trang chi tiết sản phẩm
+        # Lấy từng thuộc tính sản phẩm từ trang chi tiết sản phẩm
         product_name = response.xpath("//div[@class='col-sm-6 product_main']/h1/text()").get()
         product_code = response.xpath("//table[@class='table table-striped']//th[text()='UPC']/following-sibling::td/text()").get()
         product_type = response.xpath("//table[@class='table table-striped']//th[text()='Product Type']/following-sibling::td/text()").get()
@@ -31,7 +31,7 @@ class ProductSpider(scrapy.Spider):
         product_price_tax =response.xpath("//table[@class='table table-striped']//th[text()='Price (incl. tax)']/following-sibling::td/text()").get()
         tax = response.xpath("//table[@class='table table-striped']//th[text()='Tax']/following-sibling::td/text()").get()
         product_available =response.xpath("//table[@class='table table-striped']//th[text()='Availability']/following-sibling::td/text()").get()
-        # Trả về tên sản phẩm và link tương ứng
+        # Trả về thuộc tính sản phẩm và link tương ứng
         yield {
             'url': response.url,
             'product_name': product_name,
