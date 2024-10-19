@@ -59,14 +59,18 @@ class ProductSpider(scrapy.Spider):
         # Thêm dữ liệu vào danh sách
         self.products_data.append(product_data)
 
-    def close(self, reason):
-        # Đóng kết nối MongoDB khi spider hoàn tất
-        self.client.close()
+def close(self, reason):
+    # Đóng kết nối MongoDB khi spider hoàn tất
+    self.client.close()
 
-        # Chuyển dữ liệu từ danh sách sang DataFrame
-        df = pd.DataFrame(self.products_data)
+    # Kiểm tra nội dung của danh sách trước khi lưu vào Excel
+    print(self.products_data)  # In ra danh sách để kiểm tra xem dữ liệu có đúng không
 
-        # Lưu DataFrame vào file Excel
-        df.to_excel("books_data.xlsx", index=False)  # Chuyển dữ liệu sang file Excel
+    # Chuyển dữ liệu từ danh sách sang DataFrame
+    df = pd.DataFrame(self.products_data)
 
-        self.log("Dữ liệu đã được lưu vào file Excel thành công!")
+    # Lưu DataFrame vào file Excel
+    df.to_excel("books_data.xlsx", index=False)  # Chuyển dữ liệu sang file Excel
+
+    self.log("Dữ liệu đã được lưu vào file Excel thành công!")
+
