@@ -32,6 +32,10 @@ class ProductSpider(scrapy.Spider):
         tax = response.xpath("//table[@class='table table-striped']//th[text()='Tax']/following-sibling::td/text()").get()
         product_available = response.xpath("//table[@class='table table-striped']//th[text()='Availability']/following-sibling::td/text()").get()
 
+        # Lấy đường dẫn hình ảnh sản phẩm
+        image_url = response.xpath("//div[@class='thumbnail']//img/@src").get()
+        image_url = response.urljoin(image_url) # Chuyển đổi đường dẫn ảnh sang dạng đầy đủ
+
         # Tạo dữ liệu để chèn vào MongoDB
         product_data = {
             'url': response.url,
