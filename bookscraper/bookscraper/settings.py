@@ -1,6 +1,6 @@
-# Kích hoạt pipeline
+# Kích hoạt sipder
 ITEM_PIPELINES = {
-    'bookscraper.pipelines.MongoPipeline': 300,  # Thay 'my_project' bằng tên thực tế của dự án của bạn
+    'bookscraper.pipelines.MongoPipeline': 300, 
 }
 
 
