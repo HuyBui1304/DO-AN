@@ -41,7 +41,7 @@ class ProductSpider(scrapy.Spider):
 
             # Lấy mã sản phẩm
             try:
-                product_code = response.xpath("//table[@class='table table-striped']//th[text()='UPC']/following-sibling::td/text()").get()
+                product_code = response.xpath("//table[@class='table table- striped']//th[text()='UPC']/following-sibling::td/text()").get()
             except Exception as e:
                 self.log(f"Lỗi khi lấy mã sản phẩm: {e}", level=scrapy.log.ERROR)
                 product_code = None
