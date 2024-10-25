@@ -34,7 +34,7 @@ class ProductSpider(scrapy.Spider):
                 pass
 
             try:
-                product_type = response.xpath("//table[@class='table table-striped']//th[text()='Product Type']/following-sibling::td/text()").get()
+                book_type = response.xpath("//ul[@class='breadcrumb']/li[3]/a/text()").get()
             except:
                 pass
 
@@ -80,7 +80,7 @@ class ProductSpider(scrapy.Spider):
                 'url': response.url,
                 'product_name': product_name,
                 'product_code': product_code,
-                'product_type': product_type,
+                'book_type': book_type,
                 'product_price_excl_tax': product_price,
                 'product_price_incl_tax': product_price_tax,
                 'tax': tax,
