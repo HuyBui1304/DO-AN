@@ -24,56 +24,69 @@ class ProductSpider(scrapy.Spider):
         try:
             # Lấy dữ liệu sản phẩm
             try:
-                product_name = response.xpath("//div[@class='col-sm-6 product_main']/h1/text()").get()
+                product_name = response.xpath("//div[@class='col-sm-6 product_main']\
+                                              /h1/text()").get()
             except:
-                pass
+                product_name = ''
 
             try:
-                product_code = response.xpath("//table[@class='table table-striped']//th[text()='UPC']/following-sibling::td/text()").get()
+                product_code = response.xpath("//table[@class='table table-striped']//th[text()='UPC']/\
+                                              following-sibling::td/text()").get()
             except:
-                pass
+                product_code = ''
 
             try:
-                book_type = response.xpath("//ul[@class='breadcrumb']/li[3]/a/text()").get()
+                book_type = response.xpath("//ul[@class='breadcrumb']\
+                                           /li[3]/a/text()").get()
             except:
-                pass
+                book_type = ''
 
             try:
-                product_price = response.xpath("//table[@class='table table-striped']//th[text()='Price (excl. tax)']/following-sibling::td/text()").get()
+                product_price = response.xpath(
+                    "//table[@class='table table-striped']//th[text()='Price (excl. tax)']/\
+                                               following-sibling::td/text()").get()
             except:
-                pass
+                product_price = ''
 
             try:
-                product_price_tax = response.xpath("//table[@class='table table-striped']//th[text()='Price (incl. tax)']/following-sibling::td/text()").get()
+                product_price_tax = response.xpath(
+                    "//table[@class='table table-striped']//th[text()='Price (incl. tax)']\
+                        /following-sibling::td/text()").get()
             except:
-                pass
+                product_price_tax = ''
 
             try:
-                tax = response.xpath("//table[@class='table table-striped']//th[text()='Tax']/following-sibling::td/text()").get()
+                tax = response.xpath(
+                    "//table[@class='table table-striped']//th[text()='Tax']\
+                        /following-sibling::td/text()").get()
             except:
-                pass
+                tax = ''
 
             try:
-                product_available = response.xpath("//table[@class='table table-striped']//th[text()='Availability']/following-sibling::td/text()").get()
+                product_available = response.xpath(
+                    "//table[@class='table table-striped']\
+                    //th[text()='Availability']/following-sibling::td/text()").get()
             except:
-                pass
+                product_available = ''
             
             try:
-            # Xử lý đánh giá sao
-                product_rating = response.xpath("//p[contains(@class, 'star-rating')]/@class").get()
-                rating = product_rating.split()[-1] if product_rating else "No rating"
+            # Lấy thông tin đánh giá sao của sản phẩm
+                rating_class = response.xpath("//p[contains(@class, 'star-rating')]/@class").get()
+                rating_text = rating_class.split()[-1]  
                 star_ratings = {"One": 1, "Two": 2, "Three": 3, "Four": 4, "Five": 5}
-                stars = star_ratings.get(rating, "Không có đánh giá")
+                stars = star_ratings.get(rating_text, None)  
             except:
-                pass
+                stars = None
+
 
             try:
                 image_url = response.xpath(
-                    "//div[@class='thumbnail']/div[@class='carousel-inner']/div[@class='item active']\
-                                           /img/@src").get()
-                image_url = response.urljoin(image_url) if image_url else None
+                    "//div[@class='thumbnail']/div[@class='carousel-inner']\
+                        /div[@class='item active']/img/@src").get()
+                image_url = response.urljoin(image_url)
             except:
-                pass
+                image_url = ''
+                
 
             # Tạo dữ liệu sản phẩm
             product_data = {
