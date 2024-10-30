@@ -12,3 +12,6 @@ NEWSPIDER_MODULE = 'bookscraper.spiders'
 MONGO_URI = 'mongodb://localhost:27017/'
 MONGO_DATABASE = 'books_database'
 MONGO_COLLECTION = 'books_collection'
+
+DOWNLOAD_DELAY = 1  
+CONCURRENT_REQUESTS = 1

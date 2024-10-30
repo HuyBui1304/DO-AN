@@ -20,7 +20,7 @@ class ProductSpider(scrapy.Spider):
         if next_page:
             next_page_url = response.urljoin(next_page)
             yield scrapy.Request(url=next_page_url, callback=self.parse)
-
+    # chuẩn hoá dữ liệu sang dạng double và int
     def normalize_data(self, value, data_type):
         try:
             if data_type == "double" and value:
@@ -106,3 +106,6 @@ class ProductSpider(scrapy.Spider):
 
         except:
             pass
+
+
+        
